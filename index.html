@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การบริหารจัดการการทดสอบกลางภาคเรียน 1/2569 โรงเรียนวีรวัฒน์โยธิน</title>
+    <!-- โหลดฟอนต์ Prompt จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- โหลด FontAwesome สำหรับไอคอนสวยๆ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1e40af;
+            --secondary-color: #f59e0b;
+            --danger-color: #e11d48;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        /* พื้นหลังแบบ Animated Gradient */
+        body {
+            background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #06b6d4, #4f46e5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* กล่องเนื้อหาหลักแบบ Glassmorphism */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255,255,255,0.3) inset;
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ตกแต่ง Header */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .school-logo {
+            width: 140px;
+            height: auto;
+            margin: 0 auto 1.5rem auto;
+            display: block;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* เอฟเฟกต์เมื่อนำเมาส์ไปชี้ที่โลโก้ */
+        .school-logo:hover {
+            transform: scale(1.08) rotate(3deg);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* กล่องแจ้งเตือนวันสอบ */
+        .date-alert {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 6px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-weight: 600;
+            color: #92400e;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .date-alert i {
+            font-size: 1.5rem;
+            color: #d97706;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #ffffff;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 1.75rem 1.25rem;
+            border-radius: 20px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 1.15rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #60a5fa;
+            transition: color 0.3s ease;
+        }
+
+        .btn span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* เอฟเฟกต์ตอนชี้เมาส์ (Hover Effect) */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            z-index: -1;
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .btn:hover {
+            border-color: transparent;
+            color: #ffffff;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn:hover i, .btn:hover span {
+            color: #e0e7ff;
+        }
+
+        /* เน้นส่วนของ ปพ.5 เป็นพิเศษ */
+        .info-card {
+            background: linear-gradient(145deg, #fff1f2, #ffe4e6);
+            border: 2px solid #fda4af;
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* แถบสีแดงด้านบนการ์ด */
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 6px;
+            background: linear-gradient(90deg, #e11d48, #f43f5e, #e11d48);
+        }
+
+        .info-card h3 {
+            color: #9f1239;
+            margin-bottom: 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .info-card p {
+            margin-bottom: 0.75rem;
+            color: #4c1d95;
+            font-size: 1.1rem;
+        }
+
+        /* เอฟเฟกต์ไฟกะพริบสำหรับวันที่ */
+        .highlight-text {
+            display: inline-block;
+            background-color: #be123c;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px rgba(190, 18, 60, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(225, 29, 72, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        }
+
+        .btn-upload {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(to right, #e11d48, #be123c);
+            color: white;
+            text-decoration: none;
+            padding: 1.25rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(225, 29, 72, 0.4);
+            border: 2px solid transparent;
+        }
+
+        .btn-upload:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px -5px rgba(225, 29, 72, 0.5);
+            background: linear-gradient(to right, #be123c, #9f1239);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            .container { padding: 2rem 1.5rem; }
+            .btn { font-size: 1rem; padding: 1.25rem; }
+            .btn i { font-size: 2rem; }
+            .highlight-text { font-size: 1.1rem; }
+            .school-logo { width: 110px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="https://www.weerawat.ac.th/web/images/pic2561/logo%20wt.png" alt="โลโก้โรงเรียนวีรวัฒน์โยธิน" class="school-logo">
+            <h1>การบริหารจัดการการทดสอบกลางภาคเรียน 1/2569</h1>
+            <h2>โรงเรียนวีรวัฒน์โยธิน จ.สุรินทร์</h2>
+        </header>
+
+        <div class="date-alert">
+            <i class="fa-regular fa-calendar-check"></i>
+            <span><strong>กำหนดสอบปลายภาค:</strong> 24 - 25 กรกฎาคม 2569</span>
+        </div>
+
+        <div class="button-grid">
+            <a href="https://drive.google.com/drive/folders/1AhhqbHlNo5KM4VSOV39v-DkDdX42kb5o?usp=sharing" target="_blank" class="btn">
+                <i class="fa-solid fa-file-signature"></i>
+                คำสั่งสอบกลางภาค
+            </a>
+            
+            <a href="https://drive.google.com/file/d/10FX6HYcRR_UVnYpU5W9WLrrlLjbANcRa/view?usp=sharing" target="_blank" class="btn">
+                <i class="fa-solid fa-box-open"></i>
+                นำส่งข้อสอบตามจำนวนนักเรียน
+                <span>ระหว่างวันที่ 20-23 ก.ค. 2569<br>(ส่งที่ห้องวิชาการ)</span>
+            </a>
+            
+            <a href="https://drive.google.com/drive/folders/1sT9QcNQeHw1a3MDOnMP8Fb0O4SA3lDq9" target="_blank" class="btn">
+                <i class="fa-regular fa-folder-open"></i>
+                เอกสารสำหรับกระเป๋าข้อสอบ
+            </a>
+            
+            <a href="https://sites.google.com/view/weerawat2569/midterm" target="_blank" class="btn">
+                <i class="fa-solid fa-chart-line"></i>
+                ตรวจสอบคะแนนสอบกลางภาค
+            </a>
+        </div>
+
+        <div class="info-card">
+            <h3><i class="fa-solid fa-circle-exclamation"></i> ด่วน! การส่งเอกสาร ปพ.5</h3>
+            <p>กำหนดส่ง ปพ.5 ครั้งที่ 1 กลางภาคเรียน</p>
+            <p>ภายในวันที่ <span class="highlight-text">8 สิงหาคม 2569</span></p>
+            <p style="font-size: 0.95rem; color: #6b7280; margin-top: 1rem;">
+                * กรุณาดาวน์โหลด ปพ.5 จากระบบ SGS และอัปโหลดลง Google Drive งานวัดผล
+            </p>
+            
+            <a href="https://drive.google.com/drive/folders/1-ElFJayCIrgHdMwjUaanDsblnRTwI8j4?usp=sharing" target="_blank" class="btn-upload">
+                <i class="fa-solid fa-cloud-arrow-up"></i> ส่ง ปพ.5 ครั้งที่ 1 ที่นี่
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
