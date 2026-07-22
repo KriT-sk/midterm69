@@ -61,16 +61,19 @@
 
         /* ตกแต่ง Header */
         header {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
             margin-bottom: 2rem;
             position: relative;
+            text-align: left;
         }
 
         .school-logo {
-            width: 140px;
+            width: 90px; /* ลดขนาดโลโก้ลง */
             height: auto;
-            margin: 0 auto 1.5rem auto;
-            display: block;
+            flex-shrink: 0;
             filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -80,16 +83,22 @@
             transform: scale(1.08) rotate(3deg);
         }
 
+        .header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
         h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #1e3a8a;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
             font-weight: 800;
             letter-spacing: -0.5px;
+            line-height: 1.2;
         }
 
         h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
             font-weight: 500;
         }
@@ -266,12 +275,20 @@
 
         /* Responsive Design */
         @media (max-width: 600px) {
-            h1 { font-size: 1.6rem; }
-            .container { padding: 2rem 1.5rem; }
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            .header-text {
+                align-items: center;
+            }
+            h1 { font-size: 1.5rem; text-align: center; }
+            .container { padding: 2rem 1.25rem; }
             .btn { font-size: 1rem; padding: 1rem; }
-            .btn i { font-size: 1.75rem; margin-bottom: 0.25rem; }
+            .btn i { font-size: 1.75rem; }
             .highlight-text { font-size: 1.1rem; }
-            .school-logo { width: 110px; }
+            .school-logo { width: 80px; }
         }
     </style>
 </head>
@@ -280,8 +297,10 @@
     <div class="container">
         <header>
             <img src="https://www.weerawat.ac.th/web/images/pic2561/logo%20wt.png" alt="โลโก้โรงเรียนวีรวัฒน์โยธิน" class="school-logo">
-            <h1>การบริหารจัดการการทดสอบกลางภาคเรียน 1/2569</h1>
-            <h2>โรงเรียนวีรวัฒน์โยธิน จ.สุรินทร์</h2>
+            <div class="header-text">
+                <h1>การบริหารจัดการการทดสอบกลางภาคเรียน 1/2569</h1>
+                <h2>โรงเรียนวีรวัฒน์โยธิน จ.สุรินทร์</h2>
+            </div>
         </header>
 
         <div class="date-alert">
